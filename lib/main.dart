@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:my_app/config/supabase_config.dart';
-import 'package:my_app/screens/home_screen.dart';
 import 'package:my_app/screens/login_screen.dart';
 import 'package:my_app/services/auth_service.dart';
 import 'package:my_app/services/item_service.dart';
+import 'package:my_app/services/profile_service.dart';
+import 'package:my_app/shell/app_shell.dart';
 import 'package:my_app/theme/app_theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -50,15 +51,17 @@ class AppRoot extends StatelessWidget {
     final client = Supabase.instance.client;
     final authService = AuthService(client);
     final itemService = ItemService(client);
+    final profileService = ProfileService(client);
 
     return StreamBuilder<AuthState>(
       stream: authService.authStateChanges,
       builder: (context, snapshot) {
         final session = authService.currentSession;
         if (session != null) {
-          return HomeScreen(
+          return AppShell(
             authService: authService,
             itemService: itemService,
+            profileService: profileService,
           );
         }
         return LoginScreen(authService: authService);
@@ -103,7 +106,8 @@ class _ConfigRequiredScreen extends StatelessWidget {
                 '2. Copy Project URL → SUPABASE_URL\n'
                 '3. Copy anon public key (starts with eyJ...) → SUPABASE_ANON_KEY\n'
                 '4. Save .env and hot restart (R)\n'
-                '5. Run supabase/setup.sql if items fail to load',
+                '5. Run supabase/setup.sql if items fail to load\n'
+                '6. Run supabase/storage_setup.sql for profile photos',
               ),
             ],
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/core/error_message.dart';
 import 'package:my_app/services/auth_service.dart';
+import 'package:my_app/widgets/app_snackbar.dart';
 import 'package:my_app/theme/app_theme.dart';
 import 'package:my_app/widgets/app_svg_icons.dart';
 import 'package:my_app/widgets/auth_shell.dart';
@@ -48,26 +50,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return;
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
+      showAppSnackBar(
+        context,
+        message:
             'Account created. Check your email to confirm, then sign in.',
-          ),
-        ),
       );
       Navigator.of(context).pop();
     } on AuthException catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.message)),
+        showAppSnackBar(
+          context,
+          message: friendlyAuthError(e),
+          isError: true,
         );
       }
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign up failed: $e')),
-        );
-      }
+      if (mounted) showErrorSnackBar(context, e);
     } finally {
       if (mounted) setState(() => _loading = false);
     }

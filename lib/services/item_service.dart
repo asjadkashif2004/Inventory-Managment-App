@@ -1,5 +1,5 @@
 import 'package:my_app/models/item.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show AuthException, SupabaseClient;
 
 class ItemService {
   ItemService(this._client);
@@ -25,7 +25,10 @@ class ItemService {
     required int quantity,
     required double price,
   }) async {
-    final userId = _client.auth.currentUser!.id;
+    final userId = _client.auth.currentUser?.id;
+    if (userId == null) {
+      throw const AuthException('Not signed in');
+    }
     final data = await _client
         .from(_table)
         .insert({

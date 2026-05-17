@@ -43,6 +43,18 @@ abstract final class AppSvgIcons {
   static Widget logo({double size = 48, Color? color}) =>
       _icon(_logo, size, color);
 
+  static Widget profile({double size = _defaultSize, Color? color}) =>
+      _icon(_profile, size, color);
+
+  static Widget menu({double size = _defaultSize, Color? color}) =>
+      _icon(_menu, size, color);
+
+  static Widget camera({double size = _defaultSize, Color? color}) =>
+      _icon(_camera, size, color);
+
+  static Widget tag({double size = _defaultSize, Color? color}) =>
+      _icon(_tag, size, color);
+
   static Widget _icon(String asset, double size, Color? color) {
     return SvgPicture.string(
       asset,
@@ -130,5 +142,28 @@ abstract final class AppSvgIcons {
 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M12 3L2 21h20L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
   <path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+</svg>''';
+
+  static const _profile = '''
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+</svg>''';
+
+  static const _menu = '''
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+</svg>''';
+
+  static const _camera = '''
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 8h3l2-2h6l2 2h3v10H4V8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="1.5"/>
+</svg>''';
+
+  static const _tag = '''
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 12l-8 8-8-8V4h8l8 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="15" cy="9" r="1" fill="currentColor"/>
 </svg>''';
 }
